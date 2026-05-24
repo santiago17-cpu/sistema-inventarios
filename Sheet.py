@@ -4,13 +4,18 @@ import gspread
 from google.oauth2.service_account import Credentials
 import pandas as pd
 from validacion_log import guardar_log
-
-ruta = r"C:\Users\santi\OneDrive\Escritorio\Proyectos py\Gestion de inventarios\sistema-de-inventario.json"
+import os
+import json
+from dotenv import load_dotenv
 permisos =[
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
 ]
-credenciales = Credentials.from_service_account_file(ruta, scopes= permisos)
+load_dotenv()
+credenciales_json = os.getenv("GOOGLE_CREDENTIALS")
+credenciales_dict = json.loads(credenciales_json)
+credenciales = Credentials.from_service_account_info(credenciales_dict, scopes= permisos)
+
 
 cliente = gspread.authorize(credenciales)
 
