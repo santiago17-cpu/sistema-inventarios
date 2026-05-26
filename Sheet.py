@@ -19,13 +19,14 @@ credenciales = Credentials.from_service_account_info(credenciales_dict, scopes= 
 
 cliente = gspread.authorize(credenciales)
 
-def abrir_spreadsheets(cliente):
-    sheets = cliente.open("Sistema de inventario")
+def abrir_spreadsheets(cliente, usuario):
+    sheets = cliente.open_by_key(usuario)
     hoja_inventario = sheets.worksheet("Inventario")
     inventario = hoja_inventario.get_all_records()  
 
     df_inv = pd.DataFrame(inventario)
-    guardar_log("Iniciando proceso")
+        #guardar_log("Iniciando proceso")
+    print(df_inv)
     return df_inv, hoja_inventario
     
     
@@ -33,3 +34,4 @@ def actualizar_sheets(df_inv, hoja):
     columnas = df_inv[["Inventario", "Entrada", "Salida", "Umbral", "Estado"]]
     hoja.update(columnas.values.tolist(), "B2")
     guardar_log("Actualización completa")
+

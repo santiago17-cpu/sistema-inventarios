@@ -7,10 +7,11 @@ import os
 from dotenv import load_dotenv
 load_dotenv
 
-def Enviar_email(bajos):
+
+def Enviar_email(bajos, destinatario):
     remitente_env = os.getenv("REMITENTE")
     contraseña_env = os.getenv("CONTRASENA")
-    destinatario_env = os.getenv("DESTINATARIO")
+    destinatario_env = destinatario
     
     #creando el contenido del msg
     msg = EmailMessage()
@@ -18,7 +19,7 @@ def Enviar_email(bajos):
     msg["From"] = remitente_env
     msg["to"] = destinatario_env
     
-    texto ="Hola Santiago ALERTA DE PRODUCTOS BAJOS.\n\n"
+    texto ="ALERTA DE PRODUCTOS BAJOS.\n\n"
     
     for _, fila in bajos.iterrows():
         texto += f"{fila['Producto']} - {fila['Inventario']} - {fila['Estado']}\n"
