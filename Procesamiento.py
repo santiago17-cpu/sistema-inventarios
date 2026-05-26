@@ -1,4 +1,8 @@
-from validacion_log import guardar_log
+
+def validar_salidas(df_inv):
+    if (df_inv["Inventario"] < df_inv["Salida"]).any():
+        raise ValueError("No hay suficientes inventarios")
+
 def procesar_movimientos(df_inv):
     #restar las salidas
     df_inv["Inventario"] = df_inv["Inventario"] - df_inv["Salida"]
@@ -13,7 +17,6 @@ def procesar_movimientos(df_inv):
     # definiendo el estado dependiendo de la cantidad que halla en el inventario
     df_inv["Estado"] = "estable"
     df_inv.loc[df_inv["Inventario"] <= df_inv["Umbral"], "Estado"] = "Bajo"
-    guardar_log("Procesamiento exitoso")
     return df_inv
     
     

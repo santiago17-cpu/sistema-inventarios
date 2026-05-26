@@ -2,8 +2,8 @@
 import smtplib
 #crear el contenido del gmail
 from email.message import EmailMessage
-from validacion_log import guardar_log
 import os
+#variables de entorno
 from dotenv import load_dotenv
 load_dotenv
 
@@ -29,4 +29,3 @@ def Enviar_email(bajos, destinatario):
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
         smtp.login(remitente_env, contraseña_env)
         smtp.send_message(msg)
-    guardar_log("gmail enviado")

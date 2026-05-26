@@ -3,7 +3,6 @@ import gspread
 #conectar con drive API
 from google.oauth2.service_account import Credentials
 import pandas as pd
-from validacion_log import guardar_log
 import os
 import json
 from dotenv import load_dotenv
@@ -33,5 +32,3 @@ def abrir_spreadsheets(cliente, usuario):
 def actualizar_sheets(df_inv, hoja):
     columnas = df_inv[["Inventario", "Entrada", "Salida", "Umbral", "Estado"]]
     hoja.update(columnas.values.tolist(), "B2")
-    guardar_log("Actualización completa")
-
